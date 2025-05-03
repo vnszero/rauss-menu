@@ -36,6 +36,13 @@ function generateCategories(menuByCategory) {
         const hr = document.createElement("hr");
         article.appendChild(hr);
 
+        // Add the category image
+        const img = document.createElement("img");
+        img.src = `assets/menu-items/${category}.jpg`;
+        img.alt = category;
+        img.loading = "lazy";
+        article.appendChild(img);
+
         // Add the list of items
         const ul = document.createElement("ul");
         menuByCategory[category].forEach(item => {
@@ -51,13 +58,6 @@ function generateCategories(menuByCategory) {
             ul.appendChild(listItem);
         });
         article.appendChild(ul);
-
-        // Add the category image
-        const img = document.createElement("img");
-        img.src = `assets/menu-items/${category}.jpg`;
-        img.alt = category;
-        img.loading = "lazy";
-        article.appendChild(img);
 
         // Append the article to the section
         sectionElement.appendChild(article);
