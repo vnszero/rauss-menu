@@ -47,6 +47,27 @@
 
         <section></section> <!-- Dynamically filled by JavaScript -->
 
+        <div id="modal-login" class="modal">
+            <div class="modal-content">
+                <h4>Entrar</h4>
+                <form id="login-form">
+                    <div class="input-field">
+                        <input type="email" id="login-email" required />
+                        <label for="login-email">Email</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="password" id="login-password" required />
+                        <label for="login-password">Senha</label>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn waves-effect waves-light" type="submit">Entrar</button>
+                    </div>
+                    <div class="error red-text" style="margin-top: 1rem;"></div>
+                </form>
+            </div>
+        </div>
+
+
         <div id="modal-signup" class="modal">
             <div class="modal-content">
                 <h4>Registrar novo usuário</h4>
