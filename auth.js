@@ -1,4 +1,11 @@
 function showLoggedOptions(user) {
+    if (!user) {
+        document.querySelectorAll(".logged-only").forEach(btn => {
+            btn.style.display = "none";
+        });
+        return;
+    }
+
     db.collection('users').doc(user.uid).get().then(doc => {
         const data = doc.data();
         if (data && data.role === 'common') {
@@ -40,8 +47,6 @@ const logout = document.querySelector('#btn-logout');
 logout.addEventListener('click', (e) => {
     e.preventDefault();
     auth.signOut();
-    adminForm.querySelector('.success').innerHTML = '';
-    adminForm.querySelector('.error').innerHTML = ''; 
 });
 
 // listen for auth status changes
