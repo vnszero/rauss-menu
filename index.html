@@ -46,6 +46,30 @@
         </aside>
 
         <section></section> <!-- Dynamically filled by JavaScript -->
+
+        <div id="modal-signup" class="modal">
+            <div class="modal-content">
+                <h4>Registrar novo usuário</h4>
+                <form id="signup-form">
+                    <div class="input-field">
+                        <input type="text" id="signup-name" />
+                        <label for="signup-name">Nome</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="email" id="signup-email" required />
+                        <label for="signup-email">Email</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="password" id="signup-password" required />
+                        <label for="signup-password">Senha</label>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn waves-effect waves-light" type="submit">Registrar</button>
+                    </div>
+                    <div class="error red-text" style="margin-top: 1rem;"></div>
+                </form>
+            </div>
+        </div>
     </main>
     <footer class="custom-footer">
         <div>
@@ -65,6 +89,8 @@
     </footer>
     <script src="cs.js"></script>
     <script src="config.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="ui.js"></script>
     <script src="menu.js" defer></script>
 </body>
 
