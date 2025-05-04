@@ -86,7 +86,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (btnManage) {
         btnManage.addEventListener("click", () => {
-            alert("Gerenciamento de contas ainda não implementado.");
+            const modal = document.querySelector("#modal-manage-account");
+            if(modal) {
+                M.Modal.getInstance(modal).open();
+            } else {
+                alert("Gerenciamento de contas ainda não implementado.");
+            }
             settingsSidebar.classList.remove("open");
         });
     }
