@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,33 +11,51 @@
     <script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore-compat.js"></script>
 
     <title>Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="shortcut icon" href="assets/store/favicon.png" type="image/png">
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/variables.css">
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/layout.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/responsive.css">
 </head>
+
 <body>
-    <header>
-        <nav>
+    <header class="custom-header">
+        <nav class="custom-nav">
             <button class="hamburger" aria-label="Toggle navigation">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
             <span class="nav-links"></span> <!-- Dynamically filled by JavaScript -->
-            <img src="assets/store/logo.png" width="10%" alt="logo">
+            <img class="settings-icon" src="assets/store/settings.png" alt="settings" width="10%">
         </nav>
     </header>
-    <main>
+    <main class="custom-main">
+        <!-- Settings Sidebar -->
+        <aside class="settings-sidebar">
+            <button class="close-settings">X</button>
+            <div class="settings-options">
+                <button id="btn-login">Entrar</button>
+                <button id="btn-signup">Registrar</button>
+                <button id="btn-logout" class="admin-only">Sair</button>
+                <button id="btn-create" class="admin-only">Criar Item</button>
+                <button id="btn-manage" class="admin-only">Gerenciar Contas</button>
+            </div>
+        </aside>
+
         <section></section> <!-- Dynamically filled by JavaScript -->
-    </main>    
-    <footer>
+    </main>
+    <footer class="custom-footer">
         <div>
-            <div class="inline">
+            <div class="custom-inline">
                 <p>Campus Santa Apolónia</p>
                 <p>Centro Académico do IPB</p>
                 <p>5301-857, Bragança</p>
                 <br>
             </div>
-            <div class="inline">
+            <div class="custom-inline">
                 <p>MB Way</p>
                 <p>969 704 851</p>
                 <p>rausstuna.bar@gmail.com</p>
@@ -48,4 +67,5 @@
     <script src="config.js"></script>
     <script src="menu.js" defer></script>
 </body>
+
 </html>
