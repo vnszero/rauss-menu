@@ -1,8 +1,28 @@
+function formatEUR(input) {
+    input.addEventListener("input", () => {
+        let value = input.value.replace(/\D/g, ""); // Remove anything not digit
+        value = (parseInt(value, 10) / 100).toFixed(2) + "";
+        // value = value.replace(".", ",");
+        value = value.replace(/\B(?=(\d{3})+(?!\d))/g, "");
+        input.value = `${value}`;
+    });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     // Initialize all Materialize modals
     document.querySelectorAll('.modal').forEach(modal => {
         M.Modal.init(modal);
     });
+
+    // Initialize all selectors
+    document.querySelectorAll('select').forEach(select => {
+        M.FormSelect.init(select);
+    });
+
+    const itemValueInput = document.getElementById("item-value");
+    if (itemValueInput) {
+        formatEUR(itemValueInput);
+    }
 
     // Sidebar logic
     const settingsIcon = document.querySelector(".settings-icon");

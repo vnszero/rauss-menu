@@ -91,6 +91,46 @@
                 </form>
             </div>
         </div>
+
+        <div id="modal-create-item" class="modal">
+            <div class="modal-content">
+                <h4>Criar Novo Item</h4>
+                <form id="create-item-form">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" id="item-name" required />
+                            <label for="item-name">Nome</label>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <select id="item-category" required>
+                                <option value="" disabled selected>Escolha uma categoria</option>
+                                <option value="bebidas">Bebidas</option>
+                                <option value="descontos">Descontos</option>
+                                <option value="drinks">Drinks</option>
+                                <option value="lanches">Lanches</option>
+                                <option value="shots">Shots</option>
+                                <option value="snacks">Snacks</option>
+                                <option value="sobremesas">Sobremesas</option>
+                                <option value="vinhos">Vinhos</option>
+                            </select>
+                            <label for="item-category">Categoria</label>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <input type="text" id="item-value" required />
+                            <label for="item-value">Valor (€)</label>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn waves-effect waves-light" type="submit">Criar Item</button>
+                    </div>
+
+                    <div class="error red-text" style="margin-top: 1rem;"></div>
+                </form>
+            </div>
+        </div>
     </main>
     <footer class="custom-footer">
         <div>
