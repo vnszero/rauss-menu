@@ -1,0 +1,29 @@
+@import url('./variables.css');
+
+@media screen and (max-width: 968px) {
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 40%;
+        background-color: var(--color_dark_logo);
+        padding: 10px 0;
+        text-align: center;
+        z-index: 1000;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    nav {
+        position: relative;
+    }
+}

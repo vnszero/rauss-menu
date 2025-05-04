@@ -25,16 +25,13 @@ function generateCategories(menuByCategory) {
 
         // Create the article element
         const article = document.createElement("article");
+        article.classList.add("custom-article");
         article.id = category;
 
         // Add category title
         const title = document.createElement("h2");
         title.textContent = capitalizeFirstLetter(category.replace("-", " ")); // Beautify title
         article.appendChild(title);
-
-        // Add a horizontal rule
-        const hr = document.createElement("hr");
-        article.appendChild(hr);
 
         // Add the category image
         const img = document.createElement("img");
@@ -45,6 +42,7 @@ function generateCategories(menuByCategory) {
 
         // Add the list of items
         const ul = document.createElement("ul");
+        ul.classList.add("custom-list");
         menuByCategory[category].forEach(item => {
             const listItem = document.createElement("li");
             const nameSpan = document.createElement("span");

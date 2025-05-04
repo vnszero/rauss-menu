@@ -1,0 +1,131 @@
+@import url('./variables.css');
+
+.admin-only {
+    display: none;
+}
+
+.custom-inline {
+    display: inline-block;
+    width: 350px;
+    padding: 0 6%;
+}
+
+.custom-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.custom-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 1rem;
+    color: #444;
+}
+
+.custom-list li:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.custom-list li:last-child {
+    border-bottom: none;
+}
+
+.custom-list li span:first-child {
+    font-weight: bold;
+}
+
+.custom-list li span:last-child {
+    color: #555;
+    font-style: italic;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 25px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 4px;
+    background: var(--color_clear);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.hamburger.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.logo>h1 {
+    font-size: 375%;
+}
+
+.logo>p {
+    font-size: 108%;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nostyle {
+    list-style-type: none;
+}
+
+.settings-sidebar {
+    position: fixed;
+    top: 0;
+    right: -325px;
+    width: 280px;
+    height: 100%;
+    background: #f7f7f7;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: right 0.3s ease;
+    z-index: 999;
+}
+
+.settings-sidebar.open {
+    right: 0;
+}
+
+.settings-sidebar .close-settings {
+    background: none;
+    border: none;
+    font-size: 24px;
+    float: right;
+    cursor: pointer;
+}
+
+.settings-options {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.settings-options button {
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
