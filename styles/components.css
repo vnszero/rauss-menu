@@ -129,3 +129,7 @@
     font-size: 16px;
     cursor: pointer;
 }
+
+.logged-only {
+    display: none;
+}

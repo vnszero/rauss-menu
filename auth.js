@@ -1,3 +1,14 @@
+function showLoggedOptions(user) {
+    db.collection('users').doc(user.uid).get().then(doc => {
+        const data = doc.data();
+        if (data && data.role === 'common') {
+            document.querySelectorAll(".logged-only").forEach(btn => {
+                btn.style.display = "block";
+            });
+        }
+    });
+}
+
 // signup
 const signupForm = document.querySelector('#signup-form');
 signupForm.addEventListener('submit', (e) => {
@@ -22,4 +33,18 @@ signupForm.addEventListener('submit', (e) => {
     }).catch(err => {
         signupForm.querySelector('.error').innerHTML = err.message;
     });
+});
+
+// logout
+const logout = document.querySelector('#btn-logout');
+logout.addEventListener('click', (e) => {
+    e.preventDefault();
+    auth.signOut();
+    adminForm.querySelector('.success').innerHTML = '';
+    adminForm.querySelector('.error').innerHTML = ''; 
+});
+
+// listen for auth status changes
+auth.onAuthStateChanged((user) => {
+    showLoggedOptions(user);
 });
