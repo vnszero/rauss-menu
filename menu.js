@@ -75,46 +75,75 @@ function generateCategories(menuByCategory) {
     });
 }
 
-// CSV Parser
-function parseCSV(csvText) {
-    const rows = csvText.trim().split("\n");
-    const headers = rows.shift().split(";");
-    return rows.map(row => {
-        const values = row.split(";");
-        return headers.reduce((obj, header, index) => {
-            obj[header.trim()] = values[index].trim();
-            return obj;
-        }, {});
-    });
+async function loadMenuFromFirestore() {
+    const menuData = [];
+    db.collection('menu').onSnapshot(snapshot => {
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            menuData.push({
+                name: data.name,
+                value: parseFloat(data.value),
+                category: data.category.toLowerCase()
+            });
+        });
+
+        // Organize by category
+        const menuByCategory = {};
+        menuData.forEach(item => {
+            const category = item.category;
+            if (!menuByCategory[category]) {
+                menuByCategory[category] = [];
+            }
+            menuByCategory[category].push(item);
+        });
+
+        generateCategories(menuByCategory);
+    })
 }
+
+// CSV Parser
+// function parseCSV(csvText) {
+//     const rows = csvText.trim().split("\n");
+//     const headers = rows.shift().split(";");
+//     return rows.map(row => {
+//         const values = row.split(";");
+//         return headers.reduce((obj, header, index) => {
+//             obj[header.trim()] = values[index].trim();
+//             return obj;
+//         }, {});
+//     });
+// }
 
 // Load and Parse CSV File
-async function loadMenuFromCSV(filePath) {
-    const response = await fetch(filePath);
-    const csvText = await response.text();
-    const menuData = parseCSV(csvText);
+// async function loadMenuFromCSV(filePath) {
+//     const response = await fetch(filePath);
+//     const csvText = await response.text();
+//     const menuData = parseCSV(csvText);
 
-    // Organize items by category dynamically
-    const menuByCategory = {};
-    menuData.forEach(item => {
-        const category = item.category.toLowerCase();
-        if (!menuByCategory[category]) {
-            menuByCategory[category] = [];
-        }
-        menuByCategory[category].push({
-            name: item.name,
-            value: parseFloat(item.value.replace(",", "."))
-        });
-    });
+//     // Organize items by category dynamically
+//     const menuByCategory = {};
+//     menuData.forEach(item => {
+//         const category = item.category.toLowerCase();
+//         if (!menuByCategory[category]) {
+//             menuByCategory[category] = [];
+//         }
+//         menuByCategory[category].push({
+//             name: item.name,
+//             value: parseFloat(item.value.replace(",", "."))
+//         });
+//     });
 
-    // Generate categories dynamically
-    generateCategories(menuByCategory);
-}
+//     // Generate categories dynamically
+//     generateCategories(menuByCategory);
+// }
 
 // Event Listener
 document.addEventListener("DOMContentLoaded", () => {
     // Load menu from CSV file
-    loadMenuFromCSV("menu.csv");
+    // loadMenuFromCSV("menu.csv");
+
+    // Load menu from Firestore
+    loadMenuFromFirestore();
 
     const hamburger = document.querySelector(".hamburger");
     const navLinks = document.querySelector(".nav-links");
