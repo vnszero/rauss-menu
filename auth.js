@@ -81,3 +81,31 @@ loginForm.addEventListener('submit', (e) => {
         loginForm.querySelector('.error').innerHTML = err.message;
     });
 });
+
+// Add admin
+const manageForm = document.querySelector('#manage-form');
+manageForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.querySelector('#manage-email').value;
+
+    db.collection('users')
+        .where('email', '==', email)
+        .get()
+        .then(snapshot => {
+            if (!snapshot.empty) {
+                snapshot.forEach(doc => {
+                    doc.ref.update({ role: 'admin' });
+                });
+                manageForm.reset();
+                manageForm.querySelector('.error').innerHTML = '';
+                M.Modal.getInstance(document.querySelector('#modal-manage-account')).close();
+                M.toast({ html: 'Administrador adicionado com sucesso!', classes: 'green' });
+            } else {
+                manageForm.querySelector('.error').innerHTML = 'Nenhum usuário encontrado com esse email.';
+            }
+        })
+        .catch(err => {
+            console.error("Erro ao definir admin:", err);
+            manageForm.querySelector('.error').innerHTML = 'Erro ao adicionar administrador.';
+        });
+});
