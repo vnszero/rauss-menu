@@ -3,13 +3,22 @@ function showLoggedOptions(user) {
         document.querySelectorAll(".logged-only").forEach(btn => {
             btn.style.display = "none";
         });
+        document.querySelectorAll(".admin-only").forEach(btn => {
+            btn.style.display = "none";
+        });
         return;
     }
 
     db.collection('users').doc(user.uid).get().then(doc => {
         const data = doc.data();
-        if (data && data.role === 'common') {
+        if (data) {
             document.querySelectorAll(".logged-only").forEach(btn => {
+                btn.style.display = "block";
+            });
+        }
+
+        if (data && data.role === 'admin') {
+            document.querySelectorAll(".admin-only").forEach(btn => {
                 btn.style.display = "block";
             });
         }
