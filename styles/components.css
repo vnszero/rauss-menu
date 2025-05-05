@@ -4,6 +4,14 @@
     display: none;
 }
 
+.admin-only .icon {
+    width: 18px;
+    height: 18px;
+    margin-left: 6px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
 .custom-inline {
     display: inline-block;
     width: 350px;
@@ -83,6 +91,10 @@
     font-size: 108%;
 }
 
+.logged-only {
+    display: none;
+}
+
 .nav-links {
     display: flex;
     gap: 20px;
@@ -130,6 +142,8 @@
     cursor: pointer;
 }
 
-.logged-only {
-    display: none;
+.value-action-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }

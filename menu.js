@@ -11,7 +11,7 @@ function generateCategories(menuByCategory) {
     const sectionElement = document.querySelector("main > section");
     const navLinks = document.querySelector(".nav-links");
 
-    // Clear existing content (optional, if running multiple times)
+    // Clear existing content
     sectionElement.innerHTML = "";
     navLinks.innerHTML = "";
 
@@ -45,14 +45,42 @@ function generateCategories(menuByCategory) {
         ul.classList.add("custom-list");
         menuByCategory[category].forEach(item => {
             const listItem = document.createElement("li");
+            const groupContainer = document.createElement("span");
             const nameSpan = document.createElement("span");
             const valueSpan = document.createElement("span");
+
+            groupContainer.classList.add("value-action-group");
 
             nameSpan.textContent = item.name;
             valueSpan.textContent = `${item.value.toFixed(2)} €`;
 
+            // Action container (edit + delete)
+            const actionContainer = document.createElement("span");
+            actionContainer.classList.add("admin-only");
+            actionContainer.style.marginLeft = "10px";
+
+            const editIcon = document.createElement("img");
+            editIcon.src = "assets/store/edit.png";
+            editIcon.alt = "Editar";
+            editIcon.classList.add("icon", "edit-item");
+            editIcon.style.cursor = "pointer";
+            editIcon.style.marginRight = "8px";
+
+            const deleteIcon = document.createElement("img");
+            deleteIcon.src = "assets/store/delete.png";
+            deleteIcon.alt = "Deletar";
+            deleteIcon.classList.add("icon", "delete-item");
+            deleteIcon.style.cursor = "pointer";
+
+            actionContainer.appendChild(editIcon);
+            actionContainer.appendChild(deleteIcon);
+
+            // Append spans to the list item
             listItem.appendChild(nameSpan);
-            listItem.appendChild(valueSpan);
+            groupContainer.appendChild(valueSpan);
+            groupContainer.appendChild(actionContainer);
+            listItem.appendChild(groupContainer);
+
             ul.appendChild(listItem);
         });
         article.appendChild(ul);
@@ -61,14 +89,11 @@ function generateCategories(menuByCategory) {
         sectionElement.appendChild(article);
     });
 
-    // Add event listeners to the navigation links
-    const links = document.querySelectorAll(".nav-links a");
-    links.forEach(link => {
+    // Collapse menu on nav link click
+    document.querySelectorAll(".nav-links a").forEach(link => {
         link.addEventListener("click", () => {
-            const navLinks = document.querySelector(".nav-links");
-            const hamburger = document.querySelector(".hamburger");
-            navLinks.classList.remove("active");
-            hamburger.classList.remove("open");
+            document.querySelector(".nav-links").classList.remove("active");
+            document.querySelector(".hamburger").classList.remove("open");
         });
     });
 }
