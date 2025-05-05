@@ -1,3 +1,40 @@
+function checkIfAdmin() {
+    // Get admin role from localStorage
+    const role = localStorage.getItem('userRole');
+    
+    if (role === 'admin') {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function updateAdminIcons() {
+    const isAdmin = checkIfAdmin();
+    
+    // Get all admin-only icons
+    const adminIcons = document.querySelectorAll('.admin-only');
+
+    // Show/hide icons based on admin status
+    adminIcons.forEach(icon => {
+        if (isAdmin) {
+            icon.style.display = 'inline-block'; // Show admin-only icons
+        } else {
+            icon.style.display = 'none'; // Hide admin-only icons
+        }
+    });
+}
+
+function openDeleteModal(itemId) {
+    // Function to open the delete confirmation modal
+
+    // Set the item to be deleted (itemId)
+    itemToDelete = itemId;
+
+    // Open the modal
+    M.Modal.getInstance(deleteModal).open();
+}
+
 function finishModal() {
     const modal = document.querySelector('#modal-create-item');
     createForm.reset();
@@ -11,6 +48,9 @@ function finishModal() {
 
     // Close the modal
     M.Modal.getInstance(modal).close();
+
+    // Update admin icons after the modal action
+    updateAdminIcons();
 }
 
 function openEditModal(item) {
@@ -80,6 +120,15 @@ signupForm.addEventListener('submit', (e) => {
             role: "common"
         });
     }).then(() => {
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                db.collection('users').doc(user.uid).get().then(doc => {
+                    const role = doc.data().role;
+                    localStorage.setItem('userRole', role);
+                });
+            }
+        });
+
         const modal = document.querySelector('#modal-signup');
         M.Modal.getInstance(modal).close();
         signupForm.reset();
@@ -111,6 +160,15 @@ loginForm.addEventListener('submit', (e) => {
     const password = loginForm['login-password'].value;
 
     auth.signInWithEmailAndPassword(email, password).then((cred) => {
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                db.collection('users').doc(user.uid).get().then(doc => {
+                    const role = doc.data().role;
+                    localStorage.setItem('userRole', role);
+                });
+            }
+        });
+
         const modal = document.querySelector('#modal-login');
         M.Modal.getInstance(modal).close();
         loginForm.reset();
@@ -170,4 +228,33 @@ createForm.addEventListener('submit', (e) => {
             finishModal();
         });
     }
+});
+
+const deleteModal = document.querySelector('#modal-delete-item');
+const deleteConfirmBtn = document.querySelector('#delete-confirm-btn');
+const cancelDeleteBtn = document.querySelector('#cancel-delete-btn');
+
+// Store the item to delete temporarily
+let itemToDelete = null;
+
+// Event listener for the "Delete" button in the confirmation modal
+deleteConfirmBtn.addEventListener('click', () => {
+    if (itemToDelete) {
+        db.collection('menu').doc(itemToDelete).delete().then(() => {
+            console.log('Item deleted successfully');
+            M.Modal.getInstance(deleteModal).close();
+            itemToDelete = null;
+
+            // Update admin icons after the modal action
+            updateAdminIcons();
+        }).catch(err => {
+            console.error('Error deleting item:', err);
+        });
+    }
+});
+
+// Event listener for the "Cancel" button in the confirmation modal
+cancelDeleteBtn.addEventListener('click', () => {
+    M.Modal.getInstance(deleteModal).close();
+    itemToDelete = null; 
 });

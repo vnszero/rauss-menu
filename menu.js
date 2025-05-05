@@ -77,6 +77,11 @@ function generateCategories(menuByCategory) {
             deleteIcon.classList.add("icon", "delete-item");
             deleteIcon.style.cursor = "pointer";
 
+            // Add event listener for delete icon to show confirmation modal
+            deleteIcon.addEventListener("click", () => {
+                openDeleteModal(item.id);
+            });
+
             actionContainer.appendChild(editIcon);
             actionContainer.appendChild(deleteIcon);
 
