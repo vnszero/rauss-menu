@@ -66,6 +66,11 @@ function generateCategories(menuByCategory) {
             editIcon.style.cursor = "pointer";
             editIcon.style.marginRight = "8px";
 
+            // Add listener
+            editIcon.addEventListener("click", () => {
+                openEditModal(item);
+            });
+
             const deleteIcon = document.createElement("img");
             deleteIcon.src = "assets/store/delete.png";
             deleteIcon.alt = "Deletar";
@@ -106,6 +111,7 @@ async function loadMenuFromFirestore() {
         snapshot.forEach(doc => {
             const data = doc.data();
             menuData.push({
+                id: doc.id,
                 name: data.name,
                 value: parseFloat(data.value),
                 category: data.category.toLowerCase()

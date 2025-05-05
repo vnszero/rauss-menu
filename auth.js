@@ -1,3 +1,41 @@
+function finishModal() {
+    const modal = document.querySelector('#modal-create-item');
+    createForm.reset();
+    createForm.removeAttribute('data-edit-id');
+
+    // Reset the select field (to avoid showing previous value in edit mode)
+    const categorySelect = createForm.querySelector('#item-category');
+    const selectInstance = M.FormSelect.getInstance(categorySelect);
+    if (selectInstance) selectInstance.destroy();
+    M.FormSelect.init(categorySelect);
+
+    // Close the modal
+    M.Modal.getInstance(modal).close();
+}
+
+function openEditModal(item) {
+    const modal = document.querySelector('#modal-create-item');
+    const form = document.querySelector('#create-item-form');
+
+    // Fill in form values
+    form['item-name'].value = item.name;
+    form['item-value'].value = item.value.toFixed(2);
+    form['item-category'].value = item.category;
+    M.updateTextFields();
+
+    // Refresh select field (destroy previous instance and reinitialize it)
+    const categorySelect = form.querySelector('#item-category');
+    const selectInstance = M.FormSelect.getInstance(categorySelect);
+    if (selectInstance) selectInstance.destroy();
+    M.FormSelect.init(categorySelect);
+
+    // Store ID on form to detect edit mode
+    form.setAttribute('data-edit-id', item.id);
+
+    // Open the modal
+    M.Modal.getInstance(modal).open();
+}
+
 function showLoggedOptions(user) {
     if (!user) {
         document.querySelectorAll(".logged-only").forEach(btn => {
@@ -110,20 +148,26 @@ manageForm.addEventListener('submit', (e) => {
         });
 });
 
-// create new item
+// create new item or edit
 const createForm = document.querySelector('#create-item-form');
 createForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    db.collection('menu').add({
+    const editId = createForm.getAttribute('data-edit-id');
+    const itemData = {
         name: createForm['item-name'].value,
-        category: createForm['item-category'].value,
-        value: parseFloat(createForm['item-value'].value) || 0
-    }).then(() => {
-        // close the modal and reset form
-        const modal = document.querySelector('#modal-create-item');
-        M.Modal.getInstance(modal).close();
-        createForm.reset();
-    }).catch(err => {
-        console.log(err.message);
-    });
+        category: createForm['item-category'].value.toLowerCase(),
+        value: parseFloat(createForm['item-value'].value)
+    };
+
+    if (editId) {
+        // Update existing item
+        db.collection('menu').doc(editId).update(itemData).then(() => {
+            finishModal();
+        });
+    } else {
+        // Create new item
+        db.collection('menu').add(itemData).then(() => {
+            finishModal();
+        });
+    }
 });
