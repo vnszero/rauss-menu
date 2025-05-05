@@ -109,3 +109,21 @@ manageForm.addEventListener('submit', (e) => {
             manageForm.querySelector('.error').innerHTML = 'Erro ao adicionar administrador.';
         });
 });
+
+// create new item
+const createForm = document.querySelector('#create-item-form');
+createForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    db.collection('menu').add({
+        name: createForm['item-name'].value,
+        category: createForm['item-category'].value,
+        value: parseFloat(createForm['item-value'].value) || 0
+    }).then(() => {
+        // close the modal and reset form
+        const modal = document.querySelector('#modal-create-item');
+        M.Modal.getInstance(modal).close();
+        createForm.reset();
+    }).catch(err => {
+        console.log(err.message);
+    });
+});
