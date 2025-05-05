@@ -109,7 +109,6 @@ function generateCategories(menuByCategory) {
 }
 
 async function loadMenuFromFirestore() {
-    const menuData = [];
     db.collection('menu').onSnapshot(snapshot => {
         const menuData = []; // Clear previous data on every snapshot
 
