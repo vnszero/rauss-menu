@@ -34,7 +34,7 @@
     padding: 30px;
 }
 
-.custom-footer > div {
+.custom-footer>div {
     margin: auto;
     max-width: 100%;
     text-align: center;
@@ -76,6 +76,7 @@ h2 {
     display: flex;
     justify-content: space-between;
     margin: 10px, 8px;
+    padding: 0px 20px;
     text-align: left;
     align-items: center;
 }

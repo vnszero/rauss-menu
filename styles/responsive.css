@@ -6,21 +6,19 @@
     }
 
     .nav-links {
-        display: none;
-        flex-direction: column;
-        gap: 10px;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 40%;
+        position: fixed;
+        top: 15%;
+        left: -100%;
+        width: 150px;
         background-color: var(--color_dark_logo);
-        padding: 10px 0;
-        text-align: center;
-        z-index: 1000;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        transition: left 0.3s ease;
+        z-index: 998;
     }
 
     .nav-links.active {
-        display: flex;
+        left: 0;
     }
 
     nav {
