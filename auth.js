@@ -78,6 +78,9 @@ function openEditModal(item) {
 
 function showLoggedOptions(user) {
     if (!user) {
+        document.querySelectorAll(".guest-only").forEach(btn => {
+            btn.style.display = "block";
+        });
         document.querySelectorAll(".logged-only").forEach(btn => {
             btn.style.display = "none";
         });
@@ -90,6 +93,9 @@ function showLoggedOptions(user) {
     db.collection('users').doc(user.uid).get().then(doc => {
         const data = doc.data();
         if (data) {
+            document.querySelectorAll(".guest-only").forEach(btn => {
+                btn.style.display = "none";
+            });
             document.querySelectorAll(".logged-only").forEach(btn => {
                 btn.style.display = "block";
             });
