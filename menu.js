@@ -110,7 +110,7 @@ function generateCategories(menuByCategory) {
 
 async function loadMenuFromFirestore() {
     db.collection('menu').onSnapshot(snapshot => {
-        const menuData = []; // Clear previous data on every snapshot
+        const menuData = [];
 
         snapshot.forEach(doc => {
             const data = doc.data();
@@ -120,6 +120,13 @@ async function loadMenuFromFirestore() {
                 value: parseFloat(data.value),
                 category: data.category.toLowerCase()
             });
+        });
+
+        // Sort menuData by category then name
+        menuData.sort((a, b) => {
+            if (a.category < b.category) return -1;
+            if (a.category > b.category) return 1;
+            return a.name.localeCompare(b.name); // fallback: sort by item name
         });
 
         // Organize by category
@@ -133,8 +140,9 @@ async function loadMenuFromFirestore() {
         });
 
         generateCategories(menuByCategory);
-    })
+    });
 }
+
 
 // CSV Parser
 // function parseCSV(csvText) {
