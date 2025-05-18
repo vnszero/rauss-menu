@@ -75,11 +75,9 @@ h2 {
     background-color: var(--color_dark_logo);
     display: flex;
     justify-content: space-between;
-    margin: 10px, 8px;
     padding: 0px 20px;
     text-align: left;
     align-items: center;
-    position: fixed;
 }
 
 .custom-nav a {
