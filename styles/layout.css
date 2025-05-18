@@ -79,6 +79,7 @@ h2 {
     padding: 0px 20px;
     text-align: left;
     align-items: center;
+    position: fixed;
 }
 
 .custom-nav a {
