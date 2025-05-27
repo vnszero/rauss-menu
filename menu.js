@@ -109,6 +109,11 @@ function generateCategories(menuByCategory) {
 }
 
 async function loadMenuFromFirestore() {
+    const loader = document.getElementById("loader");
+    loader.style.display = "block";
+    loader.classList.add("fade-out");
+    setTimeout(() => loader.style.display = "none", 500);
+
     db.collection('menu').onSnapshot(snapshot => {
         const menuData = [];
 
@@ -140,6 +145,11 @@ async function loadMenuFromFirestore() {
         });
 
         generateCategories(menuByCategory);
+
+        loader.style.display = "none";
+    }, error => {
+        console.error("Error loading menu:", error);
+        loader.textContent = "Erro ao carregar o menu.";
     });
 }
 
