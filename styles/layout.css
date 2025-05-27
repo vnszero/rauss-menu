@@ -45,6 +45,11 @@ h2 {
     font-size: 120%;
 }
 
+.center-section {
+    text-align: center;
+    align-items: center;
+}
+
 .custom-header {
     background-color: var(--color_dark_logo);
     text-align: right;
